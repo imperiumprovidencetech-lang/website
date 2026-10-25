@@ -3,12 +3,13 @@
  * Interactive Logic, Particle Canvas & Micro-Interactions (Refined Edition)
  */
 
+let toastTimeout = null;
+
 document.addEventListener('DOMContentLoaded', () => {
   initParticleCanvas();
   initNavigation();
   initCounters();
-  initTechFilter();
-  initTechSearch();
+  initTechFilterAndSearch();
   initCallbackForm();
   initCopyActions();
   initBackToTop();
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
    INTERACTIVE CYBER PARTICLE CANVAS
    ========================================================================== */
 function initParticleCanvas() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const canvas = document.getElementById('particles-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
@@ -161,6 +163,7 @@ function initNavigation() {
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
         toggle.innerHTML = '☰';
       });
     });
@@ -238,61 +241,77 @@ function initCounters() {
 }
 
 /* ==========================================================================
-   TECHNOLOGY STACK FILTER & SEARCH
+   TECHNOLOGY STACK FILTER & SEARCH (UNIFIED WITH EMPTY STATE)
    ========================================================================== */
-function initTechFilter() {
+function initTechFilterAndSearch() {
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const techCards = document.querySelectorAll('.tech-card');
-
-  if (!filterBtns.length || !techCards.length) return;
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filter = btn.getAttribute('data-filter');
-
-      techCards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        if (filter === 'all' || category === filter) {
-          card.style.display = 'flex';
-          setTimeout(() => {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, 20);
-        } else {
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(15px)';
-          setTimeout(() => {
-            card.style.display = 'none';
-          }, 250);
-        }
-      });
-    });
-  });
-}
-
-function initTechSearch() {
   const searchInput = document.getElementById('tech-search-input');
   const techCards = document.querySelectorAll('.tech-card');
+  const noResults = document.getElementById('tech-no-results');
+  const searchTermDisplay = document.getElementById('search-term-display');
+  const resetBtn = document.getElementById('reset-tech-filter-btn');
 
-  if (!searchInput || !techCards.length) return;
+  if (!techCards.length) return;
 
-  searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase().trim();
+  let activeCategory = 'all';
+  let searchQuery = '';
+
+  function applyFilter() {
+    let visibleCount = 0;
 
     techCards.forEach(card => {
+      const category = card.getAttribute('data-category');
       const text = card.textContent.toLowerCase();
-      if (!query || text.includes(query)) {
+      const matchesCategory = (activeCategory === 'all' || category === activeCategory);
+      const matchesSearch = (!searchQuery || text.includes(searchQuery));
+
+      if (matchesCategory && matchesSearch) {
         card.style.display = 'flex';
         card.style.opacity = '1';
+        visibleCount++;
       } else {
         card.style.display = 'none';
         card.style.opacity = '0';
       }
     });
+
+    if (noResults) {
+      if (visibleCount === 0) {
+        noResults.style.display = 'block';
+        if (searchTermDisplay) searchTermDisplay.textContent = searchQuery || activeCategory;
+      } else {
+        noResults.style.display = 'none';
+      }
+    }
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCategory = btn.getAttribute('data-filter') || 'all';
+      applyFilter();
+    });
   });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      applyFilter();
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      activeCategory = 'all';
+      searchQuery = '';
+      if (searchInput) searchInput.value = '';
+      filterBtns.forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-filter') === 'all');
+      });
+      applyFilter();
+    });
+  }
 }
 
 /* ==========================================================================
@@ -314,12 +333,16 @@ function initCallbackForm() {
     const email = document.getElementById('cb-email').value.trim();
     const phoneCode = document.getElementById('cb-phone-code').value;
     const phoneNumber = document.getElementById('cb-phone').value.trim();
-    const service = document.getElementById('cb-service').value;
-    const timeframe = document.getElementById('cb-timeframe').value;
     const query = document.getElementById('cb-query').value.trim();
 
     if (!name || !email || !phoneNumber) {
       showToast('Please provide your Name, Email, and Phone Number.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      showToast('Please provide a valid business email address.');
       return;
     }
 
@@ -348,9 +371,6 @@ function initCallbackForm() {
 
       const clientContactSpan = document.getElementById('confirm-contact');
       if (clientContactSpan) clientContactSpan.textContent = `${email} | ${fullPhone}`;
-
-      const clientServiceSpan = document.getElementById('confirm-service');
-      if (clientServiceSpan) clientServiceSpan.textContent = service;
 
       form.style.display = 'none';
       if (successBox) successBox.classList.add('active');
@@ -408,7 +428,8 @@ function showToast(message) {
   toast.textContent = message;
   toast.classList.add('show');
 
-  setTimeout(() => {
+  if (toastTimeout) clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
     toast.classList.remove('show');
   }, 3500);
 }
@@ -437,7 +458,7 @@ function initBackToTop() {
    3D CARD TILT EFFECT (DESKTOP)
    ========================================================================== */
 function init3DTilt() {
-  if (window.innerWidth < 1024) return;
+  if (window.innerWidth < 1024 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const tiltCards = document.querySelectorAll('.tilt-card');
   tiltCards.forEach(card => {

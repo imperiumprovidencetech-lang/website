@@ -67,6 +67,11 @@ html {
   overflow-x: hidden;
 }
 
+section[id],
+.callback-form-card[id] {
+  scroll-margin-top: 100px;
+}
+
 body {
   min-height: 100vh;
   position: relative;
@@ -693,13 +698,15 @@ a {
 
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.5rem;
-  align-items: center;
+  grid-template-columns: 1fr 1.08fr;
+  gap: 2.75rem;
+  align-items: stretch;
 }
 
 .about-visual {
   position: relative;
+  height: 100%;
+  display: flex;
 }
 
 .about-image-card {
@@ -709,6 +716,10 @@ a {
   background: var(--bg-glass-card);
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
   position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 440px;
+  display: flex;
 }
 
 .about-image-card img {
@@ -716,51 +727,97 @@ a {
   height: 100%;
   display: block;
   object-fit: cover;
+  transition: transform 0.6s var(--ease-smooth);
 }
 
-.about-accent-badge {
+.about-image-card:hover img {
+  transform: scale(1.03);
+}
+
+.about-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(7, 11, 20, 0.1) 0%,
+    rgba(7, 11, 20, 0.25) 50%,
+    rgba(7, 11, 20, 0.85) 100%
+  );
+  pointer-events: none;
+}
+
+.about-card-badge {
   position: absolute;
   bottom: 1.5rem;
   left: 1.5rem;
   right: 1.5rem;
-  padding: 1.25rem 1.5rem;
+  padding: 1.15rem 1.4rem;
   border-radius: 14px;
-  background: rgba(7, 11, 20, 0.92);
-  backdrop-filter: blur(18px);
+  background: rgba(7, 11, 20, 0.88);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--border-cyan-glow);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.badge-location-title {
+.about-badge-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(0, 210, 255, 0.12);
+  border: 1px solid var(--border-cyan-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.about-badge-title {
   font-family: var(--font-display);
   font-size: 0.98rem;
   font-weight: 700;
-  color: var(--cyan-400);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.25rem;
+  color: var(--text-white);
+  line-height: 1.25;
 }
 
-.badge-location-desc {
-  font-size: 0.84rem;
-  color: var(--text-secondary);
+.about-badge-subtitle {
+  font-size: 0.82rem;
+  color: var(--cyan-400);
+  font-family: var(--font-mono);
+  margin-top: 0.2rem;
 }
 
 .pillars-list {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  gap: 1.25rem;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .pillar-card {
-  padding: 1.5rem;
-  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  border-radius: 16px;
   background: var(--bg-glass-card);
   border: 1px solid var(--border-subtle);
   display: flex;
   gap: 1.25rem;
   transition: all 0.35s var(--ease-spring);
+  backdrop-filter: blur(14px);
+}
+
+.pillar-card:hover {
+  transform: translateX(6px);
+  border-color: var(--border-cyan-glow);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 210, 255, 0.12);
+}
+
+.pillar-card.pillar-gold:hover {
+  border-color: var(--border-gold-glow);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(245, 158, 11, 0.15);
 }
 
 .pillar-card:hover {
@@ -977,12 +1034,12 @@ a {
 
 .tech-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
   gap: 1.5rem;
 }
 
 .tech-card {
-  padding: 1.8rem;
+  padding: 1.5rem 1.35rem;
   border-radius: 18px;
   background: var(--bg-glass-card);
   border: 1px solid var(--border-subtle);
@@ -1003,13 +1060,19 @@ a {
 .tech-card-header {
   display: flex;
   align-items: center;
-  gap: 1.1rem;
-  margin-bottom: 1.1rem;
+  gap: 0.9rem;
+  margin-bottom: 1rem;
 }
 
-/* HIGH-VISIBILITY LOGO CONTAINER (FIXED CRITIQUE) */
+.tech-card-header > div:last-child {
+  min-width: 0;
+  flex: 1;
+}
+
+/* HIGH-VISIBILITY LOGO CONTAINER */
 .tech-logo-container {
-  min-width: 64px;
+  min-width: 54px;
+  width: 54px;
   height: 52px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.07);
@@ -1017,7 +1080,7 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 12px;
+  padding: 8px;
   flex-shrink: 0;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.3s var(--ease-spring);
@@ -1030,10 +1093,11 @@ a {
   box-shadow: 0 0 20px rgba(0, 210, 255, 0.25);
 }
 
-/* Wide badge modifier for ServiceNow, Ivalua, Odoo */
+/* Wide badge modifier for Ivalua, Odoo */
 .tech-logo-wide {
-  min-width: 95px;
-  padding: 8px 14px;
+  min-width: 86px;
+  width: auto;
+  padding: 8px 12px;
 }
 
 .tech-logo-img {
@@ -1046,16 +1110,21 @@ a {
 }
 
 .tech-card-title {
-  font-size: 1.18rem;
+  font-size: 1.15rem;
   color: var(--text-white);
-  line-height: 1.2;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tech-badge-category {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--cyan-400);
   text-transform: uppercase;
+  letter-spacing: 0.03em;
+  display: block;
 }
 
 .tech-card-desc {
@@ -1070,32 +1139,54 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
   padding-top: 0.9rem;
   border-top: 1px solid var(--border-subtle);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--text-muted);
   font-family: var(--font-mono);
 }
 
-/* Enterprise Highlight Banner */
+/* Empty State for Search/Filter */
+.tech-no-results {
+  text-align: center;
+  padding: 2.8rem 1.5rem;
+  background: var(--bg-glass-card);
+  border: 1px dashed var(--border-subtle);
+  border-radius: 16px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-top: 1.5rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.tech-no-results span {
+  color: var(--cyan-400);
+  font-weight: 600;
+}
+
+/* Enterprise Highlight Banner (Streamlined & Proportionate) */
 .enterprise-banner {
-  margin-top: 3.5rem;
+  margin-top: 2.75rem;
   border-radius: 20px;
-  background: linear-gradient(135deg, rgba(11, 18, 34, 0.85) 0%, rgba(20, 32, 60, 0.7) 100%);
+  background: linear-gradient(135deg, rgba(11, 18, 34, 0.9) 0%, rgba(18, 28, 52, 0.78) 100%);
   border: 1px solid var(--border-gold-glow);
-  padding: 2.8rem;
+  padding: 2rem 2.4rem;
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 2.8rem;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap: 2.2rem;
   align-items: center;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
 }
 
 .enterprise-banner-img {
   width: 100%;
-  border-radius: 14px;
+  max-height: 210px;
+  border-radius: 12px;
   object-fit: cover;
+  object-position: center;
   border: 1px solid var(--border-subtle);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 /* ==========================================================================
@@ -1228,84 +1319,69 @@ a {
 }
 
 /* ==========================================================================
-   OUR CLIENTS & PARTNERSHIPS
+   OUR CLIENTS
    ========================================================================== */
 .clients-section {
-  padding: 6.5rem 0;
+  padding: 5.5rem 0 6.5rem 0;
   position: relative;
   z-index: 1;
 }
 
-.client-spotlight-card {
-  border-radius: 24px;
+.clients-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2.2rem;
+}
+
+.client-card {
+  border-radius: 20px;
   background: linear-gradient(135deg, rgba(16, 26, 48, 0.85) 0%, rgba(11, 18, 34, 0.95) 100%);
   border: 1px solid var(--border-cyan-glow);
-  padding: 3.5rem;
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 3.5rem;
+  padding: 2.5rem 3.5rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(0, 210, 255, 0.14);
-  position: relative;
-  overflow: hidden;
+  justify-content: center;
+  gap: 1.25rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 30px rgba(0, 210, 255, 0.1);
+  transition: all 0.35s var(--ease-spring);
+  max-width: 520px;
+  width: 100%;
+}
+
+.client-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--cyan-400);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(0, 210, 255, 0.2);
 }
 
 .client-logo-box {
-  background: rgba(11, 18, 34, 0.9);
-  border-radius: 18px;
-  padding: 2.5rem;
+  background: rgba(11, 18, 34, 0.8);
+  border-radius: 14px;
+  padding: 1.75rem 2.5rem;
   border: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  width: 100%;
 }
 
 .client-logo-box img {
   max-width: 100%;
   height: auto;
-  max-height: 95px;
+  max-height: 80px;
   object-fit: contain;
   filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.5));
 }
 
-.client-quote {
-  font-size: 1.2rem;
-  line-height: 1.75;
-  color: var(--text-primary);
-  font-style: italic;
-  margin-bottom: 1.8rem;
-  position: relative;
-}
-
-.client-meta {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.client-avatar-badge {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--cyan-500), var(--blue-600));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  color: #fff;
-  font-family: var(--font-display);
-}
-
 .client-name {
-  font-size: 1.08rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-white);
-}
-
-.client-role {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+  font-family: var(--font-display);
 }
 
 /* ==========================================================================
@@ -1785,10 +1861,14 @@ textarea.form-control {
 @media (max-width: 1024px) {
   .hero-grid,
   .about-grid,
-  .client-spotlight-card,
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
+  }
+
+  .about-image-card {
+    min-height: 280px;
+    max-height: 380px;
   }
 
   .services-grid,
@@ -1802,6 +1882,12 @@ textarea.form-control {
 
   .enterprise-banner {
     grid-template-columns: 1fr;
+    padding: 1.75rem 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .enterprise-banner-img {
+    max-height: 180px;
   }
 
   .footer-top-grid {
