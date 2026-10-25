@@ -1,6 +1,6 @@
 /**
  * IMPERIUM PROVIDENCE TECHNOLOGIES
- * Interactive Logic, Particle Canvas & Micro-Interactions
+ * Interactive Logic, Particle Canvas & Micro-Interactions (Refined Edition)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,7 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initCounters();
   initTechFilter();
+  initTechSearch();
   initCallbackForm();
+  initCopyActions();
+  initBackToTop();
   init3DTilt();
 });
 
@@ -49,8 +52,7 @@ function initParticleCanvas() {
       this.vx = (Math.random() - 0.5) * 0.7;
       this.vy = (Math.random() - 0.5) * 0.7;
       this.radius = Math.random() * 2 + 1;
-      // 80% cyan, 20% amber gold
-      this.isGold = Math.random() > 0.8;
+      this.isGold = Math.random() > 0.82;
       this.color = this.isGold ? 'rgba(245, 158, 11, ' : 'rgba(0, 210, 255, ';
       this.baseAlpha = Math.random() * 0.5 + 0.2;
     }
@@ -62,7 +64,6 @@ function initParticleCanvas() {
       if (this.x < 0 || this.x > width) this.vx *= -1;
       if (this.y < 0 || this.y > height) this.vy *= -1;
 
-      // Mouse interaction
       if (mouse.x !== null && mouse.y !== null) {
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
@@ -94,7 +95,6 @@ function initParticleCanvas() {
   function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    // Draw connecting lines between particles
     for (let i = 0; i < particles.length; i++) {
       particles[i].update();
       particles[i].draw();
@@ -123,7 +123,6 @@ function initParticleCanvas() {
 
   animate();
 
-  // Pause when tab hidden to optimize battery and CPU
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       cancelAnimationFrame(animationId);
@@ -143,7 +142,6 @@ function initNavigation() {
   const navLinks = document.querySelectorAll('.nav-link');
   const sections = document.querySelectorAll('section[id]');
 
-  // Header scroll class
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) {
       header.classList.add('scrolled');
@@ -152,7 +150,6 @@ function initNavigation() {
     }
   });
 
-  // Mobile menu toggle
   if (toggle && menu) {
     toggle.addEventListener('click', () => {
       menu.classList.toggle('open');
@@ -161,7 +158,6 @@ function initNavigation() {
       toggle.innerHTML = isOpen ? '✕' : '☰';
     });
 
-    // Close menu when clicking link
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         menu.classList.remove('open');
@@ -170,7 +166,6 @@ function initNavigation() {
     });
   }
 
-  // Active link scroll spy
   window.addEventListener('scroll', () => {
     const scrollY = window.pageYOffset;
 
@@ -225,7 +220,6 @@ function initCounters() {
       function update(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        // Ease out quad
         const ease = 1 - (1 - progress) * (1 - progress);
         const currentVal = target * ease;
 
@@ -244,7 +238,7 @@ function initCounters() {
 }
 
 /* ==========================================================================
-   TECHNOLOGY STACK FILTER
+   TECHNOLOGY STACK FILTER & SEARCH
    ========================================================================== */
 function initTechFilter() {
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -279,6 +273,28 @@ function initTechFilter() {
   });
 }
 
+function initTechSearch() {
+  const searchInput = document.getElementById('tech-search-input');
+  const techCards = document.querySelectorAll('.tech-card');
+
+  if (!searchInput || !techCards.length) return;
+
+  searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase().trim();
+
+    techCards.forEach(card => {
+      const text = card.textContent.toLowerCase();
+      if (!query || text.includes(query)) {
+        card.style.display = 'flex';
+        card.style.opacity = '1';
+      } else {
+        card.style.display = 'none';
+        card.style.opacity = '0';
+      }
+    });
+  });
+}
+
 /* ==========================================================================
    UI-LEVEL CALLBACK & CONSULTATION FORM (NO BACKEND STORAGE)
    ========================================================================== */
@@ -296,49 +312,51 @@ function initCallbackForm() {
 
     const name = document.getElementById('cb-name').value.trim();
     const email = document.getElementById('cb-email').value.trim();
-    const phone = document.getElementById('cb-phone').value.trim();
+    const phoneCode = document.getElementById('cb-phone-code').value;
+    const phoneNumber = document.getElementById('cb-phone').value.trim();
     const service = document.getElementById('cb-service').value;
     const timeframe = document.getElementById('cb-timeframe').value;
     const query = document.getElementById('cb-query').value.trim();
 
-    if (!name || !email || !phone) {
-      alert('Please fill in your Name, Email Address, and Phone Number so our solutions team can coordinate with you.');
+    if (!name || !email || !phoneNumber) {
+      showToast('Please provide your Name, Email, and Phone Number.');
       return;
     }
+
+    const fullPhone = `${phoneCode} ${phoneNumber}`;
 
     // Button loading state
     const originalText = submitBtn.innerHTML;
     submitBtn.disabled = true;
     submitBtn.innerHTML = `
-      <svg class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
         <path d="M12 2a10 10 0 0 1 10 10" stroke="#000"></path>
       </svg>
-      <span>Scheduling Consultation...</span>
+      <span>Logging Consultation Dispatch...</span>
     `;
 
-    // Simulate swift processing (pure UI level as requested)
     setTimeout(() => {
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
 
-      // Generate random ticket reference
       const randomTicket = 'IPT-' + Math.floor(100000 + Math.random() * 900000);
       if (ticketRefSpan) ticketRefSpan.textContent = randomTicket;
 
-      // Populate confirmation summary
       const clientNameSpan = document.getElementById('confirm-name');
       if (clientNameSpan) clientNameSpan.textContent = name;
 
       const clientContactSpan = document.getElementById('confirm-contact');
-      if (clientContactSpan) clientContactSpan.textContent = `${email} | ${phone}`;
+      if (clientContactSpan) clientContactSpan.textContent = `${email} | ${fullPhone}`;
 
-      // Switch view to success alert
+      const clientServiceSpan = document.getElementById('confirm-service');
+      if (clientServiceSpan) clientServiceSpan.textContent = service;
+
       form.style.display = 'none';
       if (successBox) successBox.classList.add('active');
 
-      // Scroll smoothly to confirmation
       successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showToast('Callback request logged successfully!');
     }, 1200);
   });
 
@@ -350,6 +368,69 @@ function initCallbackForm() {
       form.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   }
+}
+
+/* ==========================================================================
+   CLIPBOARD ACTIONS & TOAST
+   ========================================================================== */
+function initCopyActions() {
+  const copyEmailBtn = document.getElementById('copy-email-btn');
+  if (copyEmailBtn) {
+    copyEmailBtn.addEventListener('click', () => {
+      const email = 'imperium.providencetech@gmail.com';
+      navigator.clipboard.writeText(email).then(() => {
+        showToast('Email copied to clipboard: ' + email);
+      }).catch(() => {
+        showToast('imperium.providencetech@gmail.com');
+      });
+    });
+  }
+
+  const copyTicketBtn = document.getElementById('copy-ticket-btn');
+  if (copyTicketBtn) {
+    copyTicketBtn.addEventListener('click', () => {
+      const ticket = document.getElementById('ticket-ref').textContent;
+      navigator.clipboard.writeText(ticket).then(() => {
+        showToast('Reference ticket copied: ' + ticket);
+      });
+    });
+  }
+}
+
+function showToast(message) {
+  let toast = document.getElementById('toast-msg');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toast-msg';
+    toast.className = 'toast-notification';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.classList.add('show');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3500);
+}
+
+/* ==========================================================================
+   BACK TO TOP BUTTON
+   ========================================================================== */
+function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      btn.classList.add('show');
+    } else {
+      btn.classList.remove('show');
+    }
+  });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
 
 /* ==========================================================================

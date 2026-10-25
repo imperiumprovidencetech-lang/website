@@ -83,7 +83,7 @@
   <canvas id="particles-canvas" aria-hidden="true"></canvas>
 
   <!-- ==========================================================================
-       HEADER & NAVIGATION
+       HEADER & NAVIGATION (SINGLE BUTTON DESKTOP / CLEAN MOBILE DRAWER)
        ========================================================================== -->
   <header class="site-header" id="site-header">
     <div class="container header-inner">
@@ -104,12 +104,14 @@
           <li><a href="#excellence" class="nav-link">Why Imperium</a></li>
           <li><a href="#clients" class="nav-link">Clients</a></li>
           <li><a href="#contact" class="nav-link">Head Office</a></li>
+          <!-- Mobile Drawer Action Only (Hidden on Desktop) -->
           <li class="mobile-only-btn">
-            <a href="#callback" class="btn btn-primary btn-sm">Schedule Callback</a>
+            <a href="#callback" class="btn btn-primary btn-sm" style="width: 100%;">Schedule Callback</a>
           </li>
         </ul>
       </nav>
 
+      <!-- Desktop Primary Action (Hidden on Mobile) -->
       <div class="header-actions">
         <a href="#callback" class="btn btn-primary btn-sm desktop-only">Schedule Callback</a>
         <button class="mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
@@ -136,7 +138,7 @@
             </h1>
 
             <p class="hero-subtitle">
-              Imperium Providence Technologies delivers competent, battle-tested engineering resources while equipping enterprises to architect custom web applications, desktop systems, and automated workflows that scale business and cut redundant costs.
+              Imperium Providence Technologies provisions competent, deeply technical talent to help organizations hit critical milestones, while delivering custom web applications, desktop software, and automated workflows that digitalize and scale business.
             </p>
 
             <div class="hero-actions">
@@ -195,30 +197,37 @@
     </section>
 
     <!-- ==========================================================================
-         METRICS STRIP
+         METRICS STRIP (ENHANCED VISUAL DEPTH)
          ========================================================================== -->
     <section class="stats-section" aria-label="Key Performance Indicators">
       <div class="container">
         <div class="stats-grid">
           
           <div class="stat-card">
+            <div class="stat-icon">🎯</div>
             <div class="stat-value counter-val" data-target="99.4" data-decimals="1" data-suffix="%">0%</div>
             <div class="stat-label">Delivery SLA Precision</div>
+            <div class="stat-sublabel">Milestone & sprint velocity adherence</div>
           </div>
 
           <div class="stat-card">
             <div class="stat-value counter-val" data-target="40" data-decimals="0" data-suffix="%+">0%</div>
             <div class="stat-label">Redundancy Cost Reduction</div>
+            <div class="stat-sublabel">Via custom workflow digitalization</div>
           </div>
 
           <div class="stat-card">
+            <div class="stat-icon">🔒</div>
             <div class="stat-value counter-val" data-target="100" data-decimals="0" data-suffix="%">0%</div>
             <div class="stat-label">Agile & Security Compliance</div>
+            <div class="stat-sublabel">Multi-tier code review standards</div>
           </div>
 
           <div class="stat-card">
+            <div class="stat-icon">🌐</div>
             <div class="stat-value counter-val" data-target="24" data-decimals="0" data-suffix="/7">0</div>
             <div class="stat-label">Engineering Support & Advisory</div>
+            <div class="stat-sublabel">Dedicated time-zone aligned squads</div>
           </div>
 
         </div>
@@ -241,7 +250,7 @@
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                   <span>Head Office: Ludhiana, Punjab, India</span>
                 </div>
-                <div class="badge-location-desc">Strategic IT consulting center and global delivery command.</div>
+                <div class="badge-location-desc">Strategic technology center and global consulting operations.</div>
               </div>
             </div>
           </div>
@@ -257,7 +266,7 @@
             </h2>
 
             <p class="section-desc">
-              Imperium Providence Technologies is a modern technology company with its main office in <strong>Ludhiana, Punjab, India</strong>. We operate at the intersection of deep engineering capability and strategic enterprise consulting.
+              Imperium Providence Technologies is a premier IT company with its main office in <strong>Ludhiana, Punjab, India</strong>. We operate at the intersection of deep engineering capability and strategic enterprise consulting.
             </p>
 
             <div class="pillars-list">
@@ -266,7 +275,7 @@
                 <div>
                   <h3 class="pillar-title">Competent Technical Resource Provisioning</h3>
                   <p class="pillar-desc">
-                    We deploy highly qualified, verified senior developers, system architects, and technical analysts who seamlessly integrate into enterprise teams to accelerate execution and conquer technological hurdles.
+                    We deploy battle-tested senior developers, architects, and technical analysts who seamlessly integrate into enterprise squads to accelerate execution and conquer technological hurdles.
                   </p>
                 </div>
               </div>
@@ -276,7 +285,7 @@
                 <div>
                   <h3 class="pillar-title">End-to-End Bespoke Engineering</h3>
                   <p class="pillar-desc">
-                    Fully equipped to architect and build custom websites, web-based software, mobile apps, and robust desktop applications that digitalize operations, automate repetitive workflows, and unlock massive bottom-line savings.
+                    Fully equipped to architect and build custom websites, web-based applications, mobile apps, and robust desktop applications that digitalize operations, automate repetitive workflows, and save significant cost.
                   </p>
                 </div>
               </div>
@@ -412,7 +421,7 @@
     </section>
 
     <!-- ==========================================================================
-         TECHNOLOGY STACK & ENTERPRISE PLATFORMS
+         TECHNOLOGY STACK & ENTERPRISE PLATFORMS (HIGH-CONTRAST CRITIQUED LOGOS)
          ========================================================================== -->
     <section class="tech-section" id="tech-stack">
       <div class="container">
@@ -436,14 +445,20 @@
           <button class="filter-btn" data-filter="web-data">Web & Data</button>
         </div>
 
+        <!-- Interactive Search Bar -->
+        <div class="tech-search-container">
+          <svg class="tech-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="tech-search-input" class="tech-search-input" placeholder="Search technology (e.g. Ivalua, Python, ServiceNow, SQL)...">
+        </div>
+
         <!-- Tech Cards Grid -->
-        <div class="tech-grid">
+        <div class="tech-grid" id="tech-cards-grid">
           
           <!-- Python -->
           <div class="tech-card" data-category="core">
             <div class="tech-card-header">
               <div class="tech-logo-container">
-                <img src="assets/images/tech/python.svg" alt="Python Logo" class="tech-logo-img" width="32" height="32" loading="lazy">
+                <img src="assets/images/tech/python.svg" alt="Python Official Logo" class="tech-logo-img" width="36" height="36" loading="lazy">
               </div>
               <div>
                 <h3 class="tech-card-title">Python</h3>
@@ -463,7 +478,7 @@
           <div class="tech-card" data-category="core">
             <div class="tech-card-header">
               <div class="tech-logo-container">
-                <img src="assets/images/tech/java.svg" alt="Java Logo" class="tech-logo-img" width="32" height="32" loading="lazy">
+                <img src="assets/images/tech/java.svg" alt="Java Official Logo" class="tech-logo-img" width="36" height="36" loading="lazy">
               </div>
               <div>
                 <h3 class="tech-card-title">Java</h3>
@@ -483,7 +498,7 @@
           <div class="tech-card" data-category="core">
             <div class="tech-card-header">
               <div class="tech-logo-container">
-                <img src="assets/images/tech/dotnet.svg" alt=".NET Logo" class="tech-logo-img" width="32" height="32" loading="lazy">
+                <img src="assets/images/tech/dotnet.svg" alt=".NET Official Logo" class="tech-logo-img" width="36" height="36" loading="lazy">
               </div>
               <div>
                 <h3 class="tech-card-title">.NET / C#</h3>
@@ -503,7 +518,7 @@
           <div class="tech-card" data-category="web-data">
             <div class="tech-card-header">
               <div class="tech-logo-container">
-                <img src="assets/images/tech/postgresql.svg" alt="SQL Logo" class="tech-logo-img" width="32" height="32" loading="lazy">
+                <img src="assets/images/tech/postgresql.svg" alt="SQL and Database Logo" class="tech-logo-img" width="36" height="36" loading="lazy">
               </div>
               <div>
                 <h3 class="tech-card-title">SQL & Databases</h3>
@@ -523,7 +538,7 @@
           <div class="tech-card" data-category="web-data">
             <div class="tech-card-header">
               <div class="tech-logo-container">
-                <img src="assets/images/tech/javascript.svg" alt="JavaScript Logo" class="tech-logo-img" width="32" height="32" loading="lazy">
+                <img src="assets/images/tech/javascript.svg" alt="JavaScript Logo" class="tech-logo-img" width="36" height="36" loading="lazy">
               </div>
               <div>
                 <h3 class="tech-card-title">JavaScript</h3>
@@ -539,11 +554,11 @@
             </div>
           </div>
 
-          <!-- Ivalua -->
+          <!-- Ivalua (High Visibility Logo & Wide Slot) -->
           <div class="tech-card" data-category="enterprise">
             <div class="tech-card-header">
-              <div class="tech-logo-container">
-                <img src="assets/images/tech/ivalua.svg" alt="Ivalua Logo" class="tech-logo-img" width="32" height="32" loading="lazy">
+              <div class="tech-logo-container tech-logo-wide">
+                <img src="assets/images/tech/ivalua.svg" alt="Ivalua Official Vector Logo" class="tech-logo-img" width="80" height="32" loading="lazy">
               </div>
               <div>
                 <h3 class="tech-card-title">Ivalua</h3>
@@ -559,11 +574,11 @@
             </div>
           </div>
 
-          <!-- ServiceNow -->
+          <!-- ServiceNow (High Visibility Logo & Wide Slot) -->
           <div class="tech-card" data-category="enterprise">
             <div class="tech-card-header">
-              <div class="tech-logo-container">
-                <img src="assets/images/tech/servicenow.svg" alt="ServiceNow Logo" class="tech-logo-img" width="32" height="32" loading="lazy">
+              <div class="tech-logo-container tech-logo-wide">
+                <img src="assets/images/tech/servicenow.svg" alt="ServiceNow Official Vector Logo" class="tech-logo-img" width="95" height="24" loading="lazy">
               </div>
               <div>
                 <h3 class="tech-card-title">ServiceNow</h3>
@@ -583,7 +598,7 @@
           <div class="tech-card" data-category="enterprise">
             <div class="tech-card-header">
               <div class="tech-logo-container">
-                <img src="assets/images/tech/salesforce.svg" alt="Salesforce Logo" class="tech-logo-img" width="32" height="32" loading="lazy">
+                <img src="assets/images/tech/salesforce.svg" alt="Salesforce Official Logo" class="tech-logo-img" width="38" height="38" loading="lazy">
               </div>
               <div>
                 <h3 class="tech-card-title">Salesforce</h3>
@@ -599,11 +614,11 @@
             </div>
           </div>
 
-          <!-- Odoo -->
+          <!-- Odoo (High Visibility Logo & Wide Slot) -->
           <div class="tech-card" data-category="enterprise">
             <div class="tech-card-header">
-              <div class="tech-logo-container">
-                <img src="assets/images/tech/odoo.svg" alt="Odoo Logo" class="tech-logo-img" width="32" height="32" loading="lazy">
+              <div class="tech-logo-container tech-logo-wide">
+                <img src="assets/images/tech/odoo.svg" alt="Odoo Official Vector Logo" class="tech-logo-img" width="75" height="28" loading="lazy">
               </div>
               <div>
                 <h3 class="tech-card-title">Odoo</h3>
@@ -623,7 +638,7 @@
           <div class="tech-card" data-category="enterprise">
             <div class="tech-card-header">
               <div class="tech-logo-container">
-                <img src="assets/images/tech/erpnext.png" alt="ERPNext Logo" class="tech-logo-img" width="32" height="32" loading="lazy">
+                <img src="assets/images/tech/erpnext.png" alt="ERPNext Official Logo" class="tech-logo-img" width="36" height="36" loading="lazy">
               </div>
               <div>
                 <h3 class="tech-card-title">ERPNext</h3>
@@ -663,7 +678,7 @@
     </section>
 
     <!-- ==========================================================================
-         WHY IMPERIUM (MARKETING EXCELLENCE - LEGALLY SOUND FRAMEWORK)
+         WHY IMPERIUM (OPERATIONAL SUPREMACY MATRIX & STRATEGIC EXCELLENCE)
          ========================================================================== -->
     <section class="excellence-section" id="excellence">
       <div class="container">
@@ -675,7 +690,7 @@
           </div>
           <h2 class="section-title">How We <span class="text-gradient-gold">Excel</span> In Delivery</h2>
           <p class="section-desc">
-            Our operational framework leverages modern delivery velocity metrics, deep architectural governance, and adaptive squad models designed to maximize business value while maintaining full compliance.
+            Our operational framework leverages modern delivery velocity metrics, deep architectural governance, and adaptive squad models designed to maximize business value while maintaining full legal compliance.
           </p>
         </div>
 
@@ -705,6 +720,61 @@
             </p>
           </div>
 
+        </div>
+
+        <!-- Operational Comparison Matrix -->
+        <div class="comparison-card">
+          <div class="comparison-header">
+            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: #fff;">The Imperium Strategic Advantage</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              A comparative assessment of delivery models across key enterprise performance indicators.
+            </p>
+          </div>
+
+          <div class="comparison-table-wrapper">
+            <table class="comparison-table" aria-label="Delivery Model Comparison Table">
+              <thead>
+                <tr>
+                  <th>Performance Dimension</th>
+                  <th class="col-highlight">Imperium Providence</th>
+                  <th>Conventional Staffing</th>
+                  <th>Legacy Consultancies</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Technical Resource Vetting</strong></td>
+                  <td class="col-highlight"><span class="check-cyan">✓ Multi-Tier Architectural Assessment</span></td>
+                  <td><span class="cross-dim">Resume Keyword Matching</span></td>
+                  <td>Junior Staff Delegated to Projects</td>
+                </tr>
+                <tr>
+                  <td><strong>Bespoke Development Depth</strong></td>
+                  <td class="col-highlight"><span class="check-cyan">✓ Full-Stack Web, Mobile & Desktop</span></td>
+                  <td><span class="cross-dim">None (Placement Only)</span></td>
+                  <td>High-Overhead Custom Modules</td>
+                </tr>
+                <tr>
+                  <td><strong>Platform Specialization</strong></td>
+                  <td class="col-highlight"><span class="check-cyan">✓ Ivalua, ServiceNow, Salesforce, Odoo</span></td>
+                  <td><span class="cross-dim">Broad / Generalist</span></td>
+                  <td>Rigid Proprietary Tooling</td>
+                </tr>
+                <tr>
+                  <td><strong>Onboarding & Velocity</strong></td>
+                  <td class="col-highlight"><span class="check-cyan">✓ Rapid Integration (Under 7 Days)</span></td>
+                  <td>Variable (2–6 Weeks)</td>
+                  <td>Multi-Month SOW Overhead</td>
+                </tr>
+                <tr>
+                  <td><strong>Total Cost of Ownership</strong></td>
+                  <td class="col-highlight"><span class="check-cyan">✓ High ROI & Redundancy Reduction</span></td>
+                  <td>Hidden Recruitment Margins</td>
+                  <td>Exorbitant Partner Billing</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
       </div>
@@ -777,20 +847,28 @@
 
             <div class="contact-methods">
               <div class="contact-method-item">
-                <div class="contact-method-icon">✉️</div>
-                <div>
-                  <div class="contact-method-label">Official Business Email</div>
-                  <div class="contact-method-value">
-                    <a href="mailto:imperium.providencetech@gmail.com">imperium.providencetech@gmail.com</a>
+                <div class="contact-method-left">
+                  <div class="contact-method-icon">✉️</div>
+                  <div>
+                    <div class="contact-method-label">Official Business Email</div>
+                    <div class="contact-method-value">
+                      <a href="mailto:imperium.providencetech@gmail.com">imperium.providencetech@gmail.com</a>
+                    </div>
                   </div>
                 </div>
+                <button type="button" id="copy-email-btn" class="copy-email-btn" title="Copy email address">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span>Copy</span>
+                </button>
               </div>
 
               <div class="contact-method-item">
-                <div class="contact-method-icon">🏛️</div>
-                <div>
-                  <div class="contact-method-label">Corporate Registration (GSTIN)</div>
-                  <div class="contact-method-value">03AAYPA5041P2ZE</div>
+                <div class="contact-method-left">
+                  <div class="contact-method-icon">🏛️</div>
+                  <div>
+                    <div class="contact-method-label">Corporate Registration (GSTIN)</div>
+                    <div class="contact-method-value">03AAYPA5041P2ZE</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -807,7 +885,7 @@
               <div class="radar-visual-strip">
                 <div class="radar-pulse-dot"></div>
               </div>
-              <p style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.75rem;">
+              <p style="font-size: 0.84rem; color: var(--text-secondary); margin-top: 0.75rem;">
                 Imperium Providence Technologies central operations and engineering headquarters.
               </p>
             </div>
@@ -839,17 +917,29 @@
               <div class="form-group-row">
                 <div class="form-group">
                   <label for="cb-phone" class="form-label">Phone Number *</label>
-                  <input type="tel" id="cb-phone" class="form-control" placeholder="+91 / +1 / Mobile Number" required>
+                  <div class="phone-input-group">
+                    <select id="cb-phone-code" class="phone-code-select" aria-label="Country Dialing Code">
+                      <option value="+91">+91 (IN)</option>
+                      <option value="+1">+1 (US)</option>
+                      <option value="+44">+44 (UK)</option>
+                      <option value="+61">+61 (AU)</option>
+                      <option value="+971">+971 (AE)</option>
+                      <option value="+49">+49 (DE)</option>
+                      <option value="+65">+65 (SG)</option>
+                    </select>
+                    <input type="tel" id="cb-phone" class="form-control" placeholder="Mobile / Direct Number" required>
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="cb-service" class="form-label">Primary Requirement</label>
                   <select id="cb-service" class="form-control">
-                    <option value="Staff Augmentation">Technical Staff Augmentation</option>
-                    <option value="Bespoke Development">Bespoke Web / Desktop App Development</option>
-                    <option value="Ivalua / ERP Consulting">Ivalua / ServiceNow / Salesforce Consulting</option>
-                    <option value="Odoo / ERPNext">Odoo / ERPNext Implementation</option>
-                    <option value="Process Automation">Digitalization & Cost Reduction</option>
-                    <option value="General Query">General Technical Consultation</option>
+                    <option value="Technical Staff Augmentation">Technical Staff Augmentation</option>
+                    <option value="Bespoke Web / Desktop Development">Bespoke Web / Desktop App Development</option>
+                    <option value="Ivalua Spend Management">Ivalua Spend Management Consulting</option>
+                    <option value="ServiceNow / Salesforce Solutions">ServiceNow / Salesforce Solutions</option>
+                    <option value="Odoo / ERPNext Implementation">Odoo / ERPNext Implementation</option>
+                    <option value="Process Automation & Cost Reduction">Process Automation & Cost Reduction</option>
+                    <option value="General Technical Architecture">General Technical Architecture Advisory</option>
                   </select>
                 </div>
               </div>
@@ -883,12 +973,13 @@
             <!-- Success State / Confirmation Modal -->
             <div id="callback-success" class="callback-success-alert">
               <div class="success-icon-badge">✓</div>
-              <h4 style="font-size: 1.4rem; color: #fff; margin-bottom: 0.5rem;">Callback Request Logged!</h4>
+              <h4 style="font-size: 1.45rem; color: #fff; margin-bottom: 0.5rem;">Callback Request Logged!</h4>
               <p style="color: var(--text-secondary); margin-bottom: 1.25rem;">
-                Thank you, <strong id="confirm-name" style="color: var(--cyan-400);"></strong>. Our Solutions Architect will reach out to you at <span id="confirm-contact" style="color: #fff;"></span> within your preferred window.
+                Thank you, <strong id="confirm-name" style="color: var(--cyan-400);"></strong>. Our Solutions Architect will reach out to you at <span id="confirm-contact" style="color: #fff;"></span> for <strong id="confirm-service" style="color: var(--gold-400);"></strong>.
               </p>
-              <div style="background: rgba(255, 255, 255, 0.05); padding: 0.85rem; border-radius: 8px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--gold-400); margin-bottom: 1.5rem;">
-                Reference Ticket: <strong id="ticket-ref">#IPT-2026-88412</strong>
+              <div style="background: rgba(255, 255, 255, 0.05); padding: 0.85rem; border-radius: 8px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--gold-400); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 0.75rem;">
+                <span>Reference Ticket: <strong id="ticket-ref">#IPT-2026-88412</strong></span>
+                <button type="button" id="copy-ticket-btn" class="copy-email-btn" style="padding: 0.2rem 0.5rem;" title="Copy Ticket">Copy</button>
               </div>
               <button type="button" id="submit-another-btn" class="btn btn-outline btn-sm">
                 Submit Another Request
@@ -974,6 +1065,11 @@
 
     </div>
   </footer>
+
+  <!-- Floating Back to Top Button -->
+  <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </button>
 
   <!-- Scripts -->
   <script src="assets/js/main.js"></script>
